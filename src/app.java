@@ -1,5 +1,5 @@
 package src;
-import java.io.BufferedReader;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -7,36 +7,46 @@ import java.io.IOException;
 import java.util.Scanner;
 public class app {
     public static void main(String[] args)throws FileNotFoundException,IOException {
-        File file1 = new File("D:\\Code\\MultiThreaded-MatrixMultiplication\\src\\matrix1.txt");
-        File file2 = new File("D:\\Code\\MultiThreaded-MatrixMultiplication\\src\\matrix5.txt");
-        FileReader fr1=null;
-        FileReader fr2=null;
-        try{
-            fr1 = new FileReader(file1);
-            fr2 = new FileReader(file2);
-        }
-        catch(FileNotFoundException e){
-            System.out.println("File not found\n"+e);
-        }
-        int[][]mat1,mat2;
+        // File file1 = new File("D:\\Code\\MultiThreaded-MatrixMultiplication\\inputs\\matrix1.txt");
+        // File file2 = new File("D:\\Code\\MultiThreaded-MatrixMultiplication\\inputs\\matrix5.txt");
+        String file1name = "D:\\Code\\MultiThreaded-MatrixMultiplication\\inputs\\matrix1.txt";
+        String file2name = "D:\\Code\\MultiThreaded-MatrixMultiplication\\inputs\\matrix5.txt";
+        // FileReader fr1=null;
+        // FileReader fr2=null;
+        // try{
+        //     fr1 = new FileReader(file1);
+        //     fr2 = new FileReader(file2);
+        // }
+        // catch(FileNotFoundException e){
+        //     System.out.println("File not found\n"+e);
+        // }
+        // int[][]mat1,mat2;
+
+
         // while((character=fr1.read())!=-1){
         //     System.out.print((char)character);
         // }
         // System.exit(0);
         // Declare custom input classes
 
-        for (int i = 0; i < mat1.length; i++) {
-            for (int j = 0; j < mat1[i].length; j++) {
-                
+
+        // Scanner sc1 = new Scanner(fr1);
+        // Scanner sc2 = new Scanner(fr2);
+        // mat1= new int[sc1.nextInt()][sc1.nextInt()];
+        // mat2= new int[sc2.nextInt()][sc2.nextInt()];
+        // for (int i = 0; i < mat1.length; i++) {
+        //     for (int j = 0; j < mat1[i].length; j++) {
+        //         mat1[i][j] = sc1.nextInt();
+        //         mat2[i][j] = sc2.nextInt();
+        //     }
+        // }
+        SingleThreaded st = new SingleThreaded(file1name,file2name);
+        st.multiply();
+        for (int[] a : st.getResult()) {
+            for (int i : a) {
+                System.out.print(i+" ");
             }
+            System.out.println(); 
         }
-
-
-
-
-        br1.close();
-        fr1.close();
-        br2.close();
-        fr2.close();
     }
 }
