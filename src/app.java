@@ -33,14 +33,14 @@ public class app {
         //         mat2[i][j] = sc2.nextInt();
         //     }
         // }
-        String file1name = "D:\\Code\\MultiThreaded-MatrixMultiplication\\inputs\\matrix1.txt";
-        String file2name = "D:\\Code\\MultiThreaded-MatrixMultiplication\\inputs\\matrix5.txt";
+        String file1name = "D:\\Codes\\GitHub\\MultiThreaded-MatrixMultiplication\\inputs\\matrix1.txt";
+        String file2name = "D:\\Codes\\GitHub\\MultiThreaded-MatrixMultiplication\\inputs\\matrix5.txt";
         long startTime;
         System.out.println(Thread.currentThread().getName()+" Thread is running the Matrix Multiplication on Single Thread");
         startTime = System.currentTimeMillis();
         SingleThreaded st = new SingleThreaded(file1name,file2name);
         st.multiply();
-        System.out.println("It took "+ (System.currentTimeMillis()-startTime) +" milliseconds to complete the multiplication");
+        System.out.println("It took "+ (System.currentTimeMillis()-st.end) +" milliseconds to complete the multiplication");
         System.out.println("Resulting Matrix is : ");
 
         for (int[] a : st.getResult()) {
@@ -51,6 +51,7 @@ public class app {
         }
         System.out.println("Starting with MultiThreads");
         startTime = System.currentTimeMillis();
+
         MatrixReader mat1 = new MatrixReader(file1name);
         MatrixReader mat2 = new MatrixReader(file2name);
         try {
@@ -59,7 +60,8 @@ public class app {
         } catch (Exception e) {
             System.out.println("Error in joining the threads");
         }
-        
+        System.out.println("It took "+ (System.currentTimeMillis()-startTime) +" milliseconds to read Two Files on Two Threads");
+        startTime = System.currentTimeMillis();
         NThreaded threadobj[] = new NThreaded[mat1.mat.length];
         for (int i = 0; i < threadobj.length; i++) {
             threadobj[i] = new NThreaded(mat1.getMatrix(),mat2.getMatrix(),i);
@@ -68,9 +70,9 @@ public class app {
         for (int i = 0; i < threadobj.length; i++) {
             threadobj[i].t.start();
         }
-        // for (int i = 0; i < threadobj.length; i++) {
-        //     System.out.println("Thread "+threadobj[i].t.getName()+" is running");
-        // }
+        for (int i = 0; i < threadobj.length; i++) {
+            System.out.println("Thread "+threadobj[i].t.getName()+" is running");
+        }
         for (int i = 0; i < threadobj.length; i++) {
             try {
                 threadobj[i].t.join();
@@ -85,6 +87,39 @@ public class app {
                 System.out.print(threadobj[i].getResult()[j]+" ");
             }
             System.out.println(); 
+        }
+
+
+        startTime = System.currentTimeMillis();
+        NxNThreaded nxnthreads[] = new NxNThreaded[(mat1.mat.length)*mat1.mat.length];
+        // System.out.println(mat1.mat.length*mat1.mat.length);
+        for (int i = 0; i < (nxnthreads.length); i++) {
+            // System.out.println("i is "+i);
+            if(i<9)
+            nxnthreads[i] = new NxNThreaded(mat1.mat, mat2.mat, i);
+        }
+
+
+        for (int i = 0; i < nxnthreads.length; i++) {
+            nxnthreads[i].th.start();
+        }
+        for (int i = 0; i < threadobj.length; i++) {
+            System.out.println("Thread "+nxnthreads[i].th.getName()+" is running");
+        }
+
+        for (int i = 0; i < nxnthreads.length; i++) {
+            try {
+                nxnthreads[i].th.join();
+            } catch (Exception e) {
+                System.out.println("Error in joining the threads");
+            }
+        }
+        System.out.println("It took "+ (System.currentTimeMillis()-startTime) +" milliseconds to complete the multiplication");
+        System.out.println("Resulting Matrix is : ");
+        for (int i = 0; i < nxnthreads.length; i++) {
+            System.out.print(nxnthreads[i].element() +" ");
+            if(i%3==2&&i>0)
+                System.out.println();
         }
     }
 }

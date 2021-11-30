@@ -9,9 +9,11 @@ class SingleThreaded
 {
     private int[][] mat1, mat2;
     private int[][] result;
+    long start,end;
     SingleThreaded(String file1name, String file2name){
         Scanner sc1 = null;
         Scanner sc2 = null;
+        start = System.currentTimeMillis();
         try {
             sc1 = new Scanner(new FileReader(new File(file1name)));
             sc2 = new Scanner(new FileReader(new File(file2name)));
@@ -21,6 +23,8 @@ class SingleThreaded
         readMatrix(sc1,sc2);
         sc1.close();
         sc2.close();
+        end = System.currentTimeMillis();
+        System.out.println("Time to read file : "+ (end-start)+" ms");
     }
 
     SingleThreaded(int[][] mat1, int[][] mat2)
