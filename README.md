@@ -1,2 +1,4 @@
 # MultiThreaded-MatrixMultiplication
-This repo was made to have some fun with my newly learned Multithreading Concepts in Java. Here we will be performing Matrix Multiplication using multiple threads splitting the routine into smaller, manageable, and logical units.
+This repo was made to have some fun with my newly learned Multithreading Concepts in Java. Here we will be performing Matrix Multiplication using multiple threads splitting the routine into smaller, manageable, and logical units.  
+Screenshot of the results of first run where the two matrices were read from two different files and matrix multiplication was done on the matrices. The image shows the time taken by different processes.
+![Screenshot of the results of first run](https://github.com/samratpodder/MultiThreaded-MatrixMultiplication/blob/master/images/Trial1.png)
